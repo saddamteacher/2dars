@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saddam Teacher | Data Analyst 2-dars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #000000;
+            --neon-green: #00ff9f;
+            --neon-cyan: #00f0ff;
+            --neon-purple: #bf00ff;
+            --neon-pink: #ff006e;
+            --neon-yellow: #f0ff00;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-bg-hover: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --code-bg: #0a0e14;
+            --success: #00ff9f;
+            --warning: #ffbd2e;
+            --error: #ff5f56;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(0, 255, 159, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 159, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Particle Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Glowing Orbs */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+            animation: orbFloat 25s ease-in-out infinite;
+        }
+
+        .glow-orb-1 {
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -150px;
+            background: var(--neon-green);
+        }
+
+        .glow-orb-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            right: -100px;
+            background: var(--neon-cyan);
+            animation-delay: -5s;
+        }
+
+        .glow-orb-3 {
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            right: 20%;
+            background: var(--neon-purple);
+            animation-delay: -10s;
+        }
+
+        .glow-orb-4 {
+            width: 350px;
+            height: 350px;
+            bottom: 30%;
+            left: 10%;
+            background: var(--neon-pink);
+            animation-delay: -15s;
+            opacity: 0.08;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(40px, 10px) scale(1.05); }
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 18px 50px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            padding: 12px 50px;
+            background: rgba(0, 0, 0, 0.92);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            position: relative;
+            letter-spacing: 1px;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 159, 0.5));
+            animation: logoBreath 3s ease-in-out infinite;
+        }
+
+        @keyframes logoBreath {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 159, 0.5)); }
+            50% { filter: drop-shadow(0 0 35px rgba(0, 255, 159, 0.8)); }
+        }
+
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-subtitle::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 14px 32px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn .icon {
+            font-size: 1.1rem;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 159, 0.15), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-3px);
+            box-shadow:
+                0 10px 30px rgba(0, 255, 159, 0.2),
+                0 0 20px rgba(0, 255, 159, 0.1);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, rgba(0, 255, 159, 0.15), rgba(0, 240, 255, 0.08));
+            border-color: var(--neon-green);
+            box-shadow:
+                0 0 30px rgba(0, 255, 159, 0.3),
+                inset 0 0 20px rgba(0, 255, 159, 0.05);
+        }
+
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .telegram-link {
+            padding: 14px;
+            background: linear-gradient(135deg, #0088cc, #00aaff);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .telegram-link:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.4);
+        }
+
+        .telegram-link svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 2;
+            padding-top: 130px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            animation: sectionFadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes sectionFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(0, 255, 159, 0.1);
+            border: 1px solid rgba(0, 255, 159, 0.3);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .section-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--neon-green);
+        }
+
+        .section-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-cyan) 50%, var(--neon-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            border-radius: 3px;
+        }
+
+        .section-description {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 30px auto 0;
+        }
+
+        /* Data Icons Row */
+        .icons-showcase {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.6;
+            transition: all 0.4s ease;
+        }
+
+        .icon-item:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        .icon-item svg {
+            width: 45px;
+            height: 45px;
+            fill: var(--neon-green);
+            filter: drop-shadow(0 0 15px var(--neon-green));
+            animation: iconBounce 3s ease-in-out infinite;
+        }
+
+        .icon-item:nth-child(2) svg { animation-delay: 0.3s; fill: var(--neon-cyan); filter: drop-shadow(0 0 15px var(--neon-cyan)); }
+        .icon-item:nth-child(3) svg { animation-delay: 0.6s; fill: var(--neon-purple); filter: drop-shadow(0 0 15px var(--neon-purple)); }
+        .icon-item:nth-child(4) svg { animation-delay: 0.9s; fill: var(--neon-pink); filter: drop-shadow(0 0 15px var(--neon-pink)); }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .icon-item span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 159, 0.4), transparent);
+        }
+
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 159, 0.06), transparent 50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glass-card:hover::after {
+            opacity: 1;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 255, 159, 0.25);
+            transform: translateY(-8px);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(0, 255, 159, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            min-width: 70px;
+            background: linear-gradient(135deg, rgba(0, 255, 159, 0.15), rgba(0, 240, 255, 0.08));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 255, 159, 0.25);
+            box-shadow: 0 0 35px rgba(0, 255, 159, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 50px rgba(0, 255, 159, 0.25);
+        }
+
+        .card-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--neon-green);
+            filter: drop-shadow(0 0 10px var(--neon-green));
+        }
+
+        .card-header-content {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .card-badge {
+            font-size: 0.7rem;
+            padding: 5px 14px;
+            background: linear-gradient(135deg, rgba(0, 255, 159, 0.2), rgba(0, 240, 255, 0.1));
+            border: 1px solid rgba(0, 255, 159, 0.4);
+            border-radius: 25px;
+            color: var(--neon-green);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-badge.cyan {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 136, 204, 0.1));
+            border-color: rgba(0, 240, 255, 0.4);
+            color: var(--neon-cyan);
+        }
+
+        .card-badge.purple {
+            background: linear-gradient(135deg, rgba(191, 0, 255, 0.2), rgba(191, 0, 255, 0.1));
+            border-color: rgba(191, 0, 255, 0.4);
+            color: var(--neon-purple);
+        }
+
+        .card-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .card-content {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+
+        .card-content strong {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        .card-content em {
+            color: var(--neon-green);
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 159, 0.08), rgba(0, 240, 255, 0.04));
+            border-left: 4px solid var(--neon-green);
+            border-radius: 0 16px 16px 0;
+            padding: 22px 28px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            background: var(--bg-primary);
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            padding-left: 15px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .highlight-box code {
+            background: rgba(0, 255, 159, 0.12);
+            padding: 3px 10px;
+            border-radius: 6px;
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 255, 159, 0.2);
+        }
+
+        /* Code Block - Premium IDE Style */
+        .code-block {
+            background: var(--code-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            position: relative;
+        }
+
+        .code-block.animate-in {
+            animation: codeBlockSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes codeBlockSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .code-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .code-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .code-dot.red {
+            background: linear-gradient(135deg, #ff5f56, #ff3b30);
+            box-shadow: 0 0 12px rgba(255, 95, 86, 0.6);
+        }
+        .code-dot.yellow {
+            background: linear-gradient(135deg, #ffbd2e, #ff9500);
+            box-shadow: 0 0 12px rgba(255, 189, 46, 0.6);
+        }
+        .code-dot.green {
+            background: linear-gradient(135deg, #27ca40, #00d26a);
+            box-shadow: 0 0 12px rgba(39, 202, 64, 0.6);
+        }
+
+        .code-filename {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-filename svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--neon-green);
+        }
+
+        .copy-btn {
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 255, 159, 0.1);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .copy-btn.copied {
+            background: rgba(0, 255, 159, 0.15);
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+        }
+
+        .code-body {
+            padding: 28px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-body::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: rgba(255, 255, 255, 0.01);
+            border-right: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .code-body pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 2;
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            padding-left: 35px;
+        }
+
+        /* Enhanced Syntax Highlighting */
+        .keyword { color: #ff79c6; font-weight: 600; }
+        .function { color: #50fa7b; text-shadow: 0 0 15px rgba(80, 250, 123, 0.4); }
+        .string { color: #f1fa8c; }
+        .number { color: #bd93f9; }
+        .comment { color: #6272a4; font-style: italic; }
+        .operator { color: #ff79c6; font-weight: 600; }
+        .variable { color: #8be9fd; }
+        .builtin { color: #50fa7b; }
+        .comparison { color: #ffb86c; font-weight: 600; }
+        .boolean { color: #bd93f9; font-weight: 600; }
+
+        /* Concept Cards Grid */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .concept-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 255, 159, 0.1), transparent 30%);
+            animation: rotate 8s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .concept-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-green);
+            box-shadow: 0 25px 60px rgba(0, 255, 159, 0.15);
+        }
+
+        .concept-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .concept-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--neon-green);
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .concept-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Example Flow Diagram */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            padding: 20px 30px;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .flow-box.condition {
+            background: linear-gradient(135deg, rgba(255, 121, 198, 0.15), rgba(189, 147, 249, 0.1));
+            border-color: rgba(255, 121, 198, 0.4);
+            color: #ff79c6;
+            transform: rotate(45deg);
+            border-radius: 8px;
+        }
+
+        .flow-box.condition span {
+            display: block;
+            transform: rotate(-45deg);
+        }
+
+        .flow-box.true-box {
+            background: linear-gradient(135deg, rgba(0, 255, 159, 0.15), rgba(80, 250, 123, 0.1));
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .flow-box.false-box {
+            background: linear-gradient(135deg, rgba(255, 95, 86, 0.15), rgba(255, 59, 48, 0.1));
+            border-color: #ff5f56;
+            color: #ff5f56;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Task Cards */
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+        }
+
+        .task-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(0, 255, 159, 0.03));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .task-card:hover::before {
+            opacity: 1;
+        }
+
+        .task-card:hover {
+            border-color: rgba(0, 255, 159, 0.35);
+            transform: translateY(-10px);
+            box-shadow:
+                0 35px 80px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(0, 255, 159, 0.12);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .task-number {
+            width: 55px;
+            height: 55px;
+            min-width: 55px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: #000;
+            box-shadow: 0 10px 30px rgba(0, 255, 159, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .task-card:hover .task-number {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .task-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .task-body {
+            padding: 25px 30px;
+        }
+
+        .task-code {
+            background: var(--code-bg);
+            border-radius: 14px;
+            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .task-code pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .task-hint {
+            margin-top: 18px;
+            padding: 15px 18px;
+            background: rgba(0, 255, 159, 0.05);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-hint::before {
+            content: '💡';
+        }
+
+        /* Full Width Task */
+        .task-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.7s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.15s; }
+        .stagger-3 { animation-delay: 0.2s; }
+        .stagger-4 { animation-delay: 0.25s; }
+        .stagger-5 { animation-delay: 0.3s; }
+        .stagger-6 { animation-delay: 0.35s; }
+        .stagger-7 { animation-delay: 0.4s; }
+        .stagger-8 { animation-delay: 0.45s; }
+        .stagger-9 { animation-delay: 0.5s; }
+        .stagger-10 { animation-delay: 0.55s; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 30px;
+            margin-top: 100px;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .footer-text span {
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--neon-green), var(--neon-cyan));
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .navbar.scrolled {
+                padding: 12px 20px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-btn {
+                padding: 12px 22px;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.6rem;
+            }
+
+            .main-content {
+                padding-top: 180px;
+            }
+
+            .section-title {
+                font-size: 2.4rem;
+            }
+
+            .section-description {
+                font-size: 1rem;
+            }
+
+            .icons-showcase {
+                gap: 30px;
+            }
+
+            .icon-item svg {
+                width: 35px;
+                height: 35px;
+            }
+
+            .glass-card {
+                padding: 28px;
+                border-radius: 22px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .card-icon {
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .task-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .container {
+                padding: 0 18px;
+            }
+
+            .code-body pre {
+                font-size: 0.85rem;
+                padding-left: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.7rem;
+                letter-spacing: 2px;
+            }
+
+            .glass-card {
+                padding: 22px;
+            }
+
+            .card-title {
+                font-size: 1.3rem;
+            }
+
+            .code-body {
+                padding: 20px;
+            }
+
+            .code-body pre {
+                font-size: 0.8rem;
+            }
+
+            .task-header {
+                padding: 20px;
+            }
+
+            .task-body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="grid-bg"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="glow-orb glow-orb-4"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo-wrapper">
+            <div class="logo">𝓈𝒶𝒹𝒹𝒶𝓂 𝓉𝑒𝒶𝒸𝒽𝑒𝓇</div>
+            <div class="logo-subtitle">Data Analyst | 2-dars</div>
+        </div>
+        <div class="nav-menu">
+            <button class="nav-btn active" data-section="sinf-ishi" onclick="switchSection('sinf-ishi')">
+                <span class="icon">📚</span> Sinf ishi
+            </button>
+            <button class="nav-btn" data-section="uy-ishi" onclick="switchSection('uy-ishi')">
+                <span class="icon">🏠</span> Uy ishi
+            </button>
+            <a href="https://t.me/saddamtg" target="_blank" class="telegram-link" title="Telegram">
+                <svg viewBox="0 0 24 24">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- ==================== SINF ISHI ==================== -->
+            <section id="sinf-ishi" class="section active">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+                        2-dars | Shartlar
+                    </div>
+                    <h1 class="section-title">Sinf ishi</h1>
+                    <p class="section-description">
+                        Python'da qaror qabul qilish — <strong>if / elif / else</strong> operatorlarini o'rganamiz
+                    </p>
+                    <div class="icons-showcase">
+                        <div class="icon-item">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                            <span>Kod</span>
+                        </div>
+                        <div class="icon-item">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                            <span>Analiz</span>
+                        </div>
+                        <div class="icon-item">
+                            <svg viewBox="0 0 24 24"><path d="M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55C12.27 10.45 11.46 9 10 9c-1.45 0-2.27 1.44-1.93 2.52l-4.56 4.55C2.44 15.74 1 16.55 1 18c0 1.1.9 2 2 2 1.45 0 2.26-1.44 1.93-2.51l4.55-4.56c.3.09.74.09 1.04 0l2.55 2.55C12.73 16.55 13.54 18 15 18c1.45 0 2.27-1.44 1.93-2.52l3.56-3.55c1.07.33 2.51-.48 2.51-1.93 0-1.1-.9-2-2-2z"/></svg>
+                            <span>AI</span>
+                        </div>
+                        <div class="icon-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span>Qaror</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kirish -->
+                <div class="glass-card fade-in stagger-1">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        </div>
+                        <div class="card-header-content">
+                            <h3 class="card-title">Shartli operatorlar nima? <span class="card-badge">Asosiy tushuncha</span></h3>
+                            <p class="card-subtitle">Dasturda qaror qabul qilish</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            Hayotda biz doimo <strong>qarorlar</strong> qabul qilamiz: "Agar yomg'ir yog'sa — soyabon olaman, aks holda — olmayman". Pythonda ham xuddi shunday! <em>Shartli operatorlar</em> dasturga turli holatlarda turlicha harakat qilishni o'rgatadi.
+                        </p>
+                        <p style="margin-top: 15px;">
+                            <strong>Data Analyst</strong> sifatida biz doimo shartlarni ishlatamiz: foyda bormi yo'qmi, savdo yaxshimi yomonmi, mijoz faolmi yo'qmi — bularning barchasi shartli tekshiruvlar orqali aniqlanadi.
+                        </p>
+                    </div>
+
+                    <div class="flow-diagram">
+                        <div class="flow-box">Shart</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-box condition"><span>Ha / Yo'q?</span></div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-box true-box">✓ Rost</div>
+                        <span class="flow-arrow">/</span>
+                        <div class="flow-box false-box">✗ Yolg'on</div>
+                    </div>
+                </div>
+
+                <!-- Concept Cards -->
+                <div class="concept-grid fade-in stagger-2">
+                    <div class="concept-card">
+                        <span class="concept-emoji">🚦</span>
+                        <div class="concept-name">if</div>
+                        <p class="concept-desc">Agar shart <strong>rost</strong> bo'lsa, kod bajariladi. "Agar ... bo'lsa" degan ma'noni beradi.</p>
+                    </div>
+                    <div class="concept-card">
+                        <span class="concept-emoji">🔀</span>
+                        <div class="concept-name">else</div>
+                        <p class="concept-desc">Shart <strong>yolg'on</strong> bo'lganda bajariladi. "Aks holda" degan ma'noni beradi.</p>
+                    </div>
+                    <div class="concept-card">
+                        <span class="concept-emoji">📊</span>
+                        <div class="concept-name">elif</div>
+                        <p class="concept-desc">Qo'shimcha shartlarni tekshirish. "Agar bo'lmasa, boshqa shart bo'lsa" degan ma'no.</p>
+                    </div>
+                </div>
+
+                <!-- IF -->
+                <div class="glass-card fade-in stagger-3">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                        </div>
+                        <div class="card-header-content">
+                            <h3 class="card-title">if operatori <span class="card-badge">Shart tekshirish</span></h3>
+                            <p class="card-subtitle">Eng oddiy shart tekshiruvi</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            <code>if</code> operatori shartni tekshiradi. Agar shart <em>rost (True)</em> bo'lsa, ichidagi kod bajariladi. Shart <em>yolg'on (False)</em> bo'lsa — tashlab o'tiladi.
+                        </p>
+                    </div>
+
+                    <div class="code-block animate-in">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <span class="code-filename">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                if_example.py
+                            </span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                Nusxa
+                            </button>
+                        </div>
+                        <div class="code-body">
+                            <pre><span class="comment"># Oddiy if misoli</span>
+<span class="variable">yosh</span> <span class="operator">=</span> <span class="number">20</span>
+
+<span class="keyword">if</span> <span class="variable">yosh</span> <span class="comparison">>=</span> <span class="number">18</span>:
+    <span class="function">print</span>(<span class="string">"Siz voyaga yetgansiz ✓"</span>)</pre>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p>Diqqat! <code>if</code> dan keyin <strong>ikki nuqta (:)</strong> qo'yiladi va keyingi qator <strong>4 ta bo'sh joy (indent)</strong> bilan boshlanadi.</p>
+                    </div>
+                </div>
+
+                <!-- IF + ELSE -->
+                <div class="glass-card fade-in stagger-4">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 136, 204, 0.08)); border-color: rgba(0, 240, 255, 0.25);">
+                            <svg viewBox="0 0 24 24" style="fill: var(--neon-cyan);"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"/></svg>
+                        </div>
+                        <div class="card-header-content">
+                            <h3 class="card-title">if + else <span class="card-badge cyan">Ikki yo'l</span></h3>
+                            <p class="card-subtitle">Agar bo'lmasa, boshqa narsa qil</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            <code>else</code> — "aks holda" demak. Agar <code>if</code> sharti yolg'on bo'lsa, <code>else</code> ichidagi kod bajariladi. Bu ikki yo'ldan birini tanlash imkonini beradi.
+                        </p>
+                    </div>
+
+                    <div class="code-block animate-in">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <span class="code-filename">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                if_else_example.py
+                            </span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                Nusxa
+                            </button>
+                        </div>
+                        <div class="code-body">
+                            <pre><span class="comment"># Yosh tekshirish</span>
+<span class="variable">age</span> <span class="operator">=</span> <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Yosh: "</span>))
+
+<span class="keyword">if</span> <span class="variable">age</span> <span class="comparison">>=</span> <span class="number">18</span>:
+    <span class="function">print</span>(<span class="string">"Kirish mumkin ✓"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"Kirish mumkin emas ✗"</span>)</pre>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p><code>else</code> da shart yozilmaydi! U faqat <code>if</code> sharti yolg'on bo'lganda ishlaydi.</p>
+                    </div>
+                </div>
+
+                <!-- IF + ELIF + ELSE -->
+                <div class="glass-card fade-in stagger-5">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, rgba(191, 0, 255, 0.15), rgba(191, 0, 255, 0.08)); border-color: rgba(191, 0, 255, 0.25);">
+                            <svg viewBox="0 0 24 24" style="fill: var(--neon-purple);"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                        </div>
+                        <div class="card-header-content">
+                            <h3 class="card-title">if + elif + else <span class="card-badge purple">Ko'p shartlar</span></h3>
+                            <p class="card-subtitle">Bir nechta shartni tekshirish</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            <code>elif</code> = "else if" (aks holda agar). Bu bir nechta shartni ketma-ket tekshirish imkonini beradi. <strong>Data Analyst</strong> ishi uchun juda muhim — chunki biz ko'p kategoriyalar bilan ishlaymiz!
+                        </p>
+                    </div>
+
+                    <div class="code-block animate-in">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <span class="code-filename">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                sales_analysis.py
+                            </span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                Nusxa
+                            </button>
+                        </div>
+                        <div class="code-body">
+                            <pre><span class="comment"># 📊 Savdo tahlili - Data Analyst misoli</span>
+<span class="variable">sales</span> <span class="operator">=</span> <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Bugungi savdo (so'm): "</span>))
+
+<span class="keyword">if</span> <span class="variable">sales</span> <span class="comparison">></span> <span class="number">100000</span>:
+    <span class="function">print</span>(<span class="string">"🎉 Ajoyib kun! Savdo a'lo darajada"</span>)
+<span class="keyword">elif</span> <span class="variable">sales</span> <span class="comparison">></span> <span class="number">50000</span>:
+    <span class="function">print</span>(<span class="string">"👍 Yaxshi kun! Normal savdo"</span>)
+<span class="keyword">elif</span> <span class="variable">sales</span> <span class="comparison">></span> <span class="number">20000</span>:
+    <span class="function">print</span>(<span class="string">"⚠️ O'rtacha kun"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"😔 Yomon kun. Tahlil kerak!"</span>)</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biznes Misol 1 - Foyda/Zarar -->
+                <div class="glass-card fade-in stagger-6">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, rgba(0, 255, 159, 0.2), rgba(80, 250, 123, 0.1));">
+                            <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                        </div>
+                        <div class="card-header-content">
+                            <h3 class="card-title">💰 Foyda/Zarar tahlili <span class="card-badge">Real misol</span></h3>
+                            <p class="card-subtitle">Biznes uchun muhim hisoblash</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block animate-in">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <span class="code-filename">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                profit_loss.py
+                            </span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                Nusxa
+                            </button>
+                        </div>
+                        <div class="code-body">
+                            <pre><span class="comment"># 📈 Korxona foyda/zarar tahlili</span>
+<span class="variable">daromad</span> <span class="operator">=</span> <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Daromad: "</span>))
+<span class="variable">xarajat</span> <span class="operator">=</span> <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Xarajat: "</span>))
+
+<span class="variable">natija</span> <span class="operator">=</span> <span class="variable">daromad</span> <span class="operator">-</span> <span class="variable">xarajat</span>
+
+<span class="keyword">if</span> <span class="variable">natija</span> <span class="comparison">></span> <span class="number">0</span>:
+    <span class="function">print</span>(<span class="string">"📈 FOYDA:"</span>, <span class="variable">natija</span>, <span class="string">"so'm"</span>)
+<span class="keyword">elif</span> <span class="variable">natija</span> <span class="comparison"><</span> <span class="number">0</span>:
+    <span class="function">print</span>(<span class="string">"📉 ZARAR:"</span>, <span class="function">abs</span>(<span class="variable">natija</span>), <span class="string">"so'm"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"⚖️ Balans nol"</span>)</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biznes Misol 2 - Baho tizimi -->
+                <div class="glass-card fade-in stagger-7">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, rgba(241, 250, 140, 0.2), rgba(255, 189, 46, 0.1)); border-color: rgba(241, 250, 140, 0.3);">
+                            <svg viewBox="0 0 24 24" style="fill: #f1fa8c;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <div class="card-header-content">
+                            <h3 class="card-title">⭐ Baho tizimi <span class="card-badge" style="background: rgba(241, 250, 140, 0.15); border-color: rgba(241, 250, 140, 0.4); color: #f1fa8c;">Reyting</span></h3>
+                            <p class="card-subtitle">Talaba baholarini aniqlash</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block animate-in">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <span class="code-filename">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                grading_system.py
+                            </span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                Nusxa
+                            </button>
+                        </div>
+                        <div class="code-body">
+                            <pre><span class="comment"># 🎓 Baho tizimi</span>
+<span class="variable">ball</span> <span class="operator">=</span> <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Ballingizni kiriting: "</span>))
+
+<span class="keyword">if</span> <span class="variable">ball</span> <span class="comparison">>=</span> <span class="number">90</span>:
+    <span class="function">print</span>(<span class="string">"Baho: A (A'lo) 🏆"</span>)
+<span class="keyword">elif</span> <span class="variable">ball</span> <span class="comparison">>=</span> <span class="number">80</span>:
+    <span class="function">print</span>(<span class="string">"Baho: B (Yaxshi) 👍"</span>)
+<span class="keyword">elif</span> <span class="variable">ball</span> <span class="comparison">>=</span> <span class="number">70</span>:
+    <span class="function">print</span>(<span class="string">"Baho: C (Qoniqarli) 📝"</span>)
+<span class="keyword">elif</span> <span class="variable">ball</span> <span class="comparison">>=</span> <span class="number">60</span>:
+    <span class="function">print</span>(<span class="string">"Baho: D (Past) ⚠️"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"Baho: F (O'tmadi) ❌"</span>)</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Taqqoslash operatorlari -->
+                <div class="glass-card fade-in stagger-8">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v-2H5V5h5V3zm4 18h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-5v2h5v14h-5v2z"/></svg>
+                        </div>
+                        <div class="card-header-content">
+                            <h3 class="card-title">⚖️ Taqqoslash operatorlari <span class="card-badge cyan">Muhim!</span></h3>
+                            <p class="card-subtitle">Shartlarda ishlatiladigan belgilar</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <span class="code-filename">comparison_operators.py</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                Nusxa
+                            </button>
+                        </div>
+                        <div class="code-body">
+                            <pre><span class="comment"># Taqqoslash operatorlari ro'yxati</span>
+
+<span class="variable">a</span> <span class="comparison">==</span> <span class="variable">b</span>   <span class="comment"># Teng (equal)</span>
+<span class="variable">a</span> <span class="comparison">!=</span> <span class="variable">b</span>   <span class="comment"># Teng emas (not equal)</span>
+<span class="variable">a</span> <span class="comparison">></span> <span class="variable">b</span>    <span class="comment"># Katta (greater than)</span>
+<span class="variable">a</span> <span class="comparison"><</span> <span class="variable">b</span>    <span class="comment"># Kichik (less than)</span>
+<span class="variable">a</span> <span class="comparison">>=</span> <span class="variable">b</span>   <span class="comment"># Katta yoki teng</span>
+<span class="variable">a</span> <span class="comparison"><=</span> <span class="variable">b</span>   <span class="comment"># Kichik yoki teng</span>
+
+<span class="comment"># Mantiqiy operatorlar</span>
+<span class="keyword">and</span>      <span class="comment"># VA (ikkisi ham rost bo'lishi kerak)</span>
+<span class="keyword">or</span>       <span class="comment"># YOKI (bittasi rost bo'lsa yetarli)</span>
+<span class="keyword">not</span>      <span class="comment"># INKOR (teskari qiladi)</span></pre>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p>Diqqat! <code>=</code> — qiymat berish, <code>==</code> — taqqoslash. Bularni adashtirmang!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== UY ISHI ==================== -->
+            <section id="uy-ishi" class="section">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        Mustaqil ish
+                    </div>
+                    <h1 class="section-title">Uy ishi</h1>
+                    <p class="section-description">
+                        10 ta vazifa — <strong>if / elif / else</strong> bilan ishlang!
+                    </p>
+                    <div class="icons-showcase">
+                        <div class="icon-item">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                            <span>Vazifalar</span>
+                        </div>
+                        <div class="icon-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span>Bajaring</span>
+                        </div>
+                        <div class="icon-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <span>O'rganing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-grid">
+                    <!-- Task 1 -->
+                    <div class="task-card fade-in stagger-1">
+                        <div class="task-header">
+                            <div class="task-number">1</div>
+                            <h4 class="task-title">Login tekshirish (username + password)</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># Login tizimi</span>
+<span class="comment"># username va password tekshiring</span>
+<span class="comment"># Agar to'g'ri: "Xush kelibsiz!"</span>
+<span class="comment"># Agar noto'g'ri: "Xato!"</span></pre>
+                            </div>
+                            <div class="task-hint">if username va password to'g'ri bo'lsa</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 2 -->
+                    <div class="task-card fade-in stagger-2">
+                        <div class="task-header">
+                            <div class="task-number">2</div>
+                            <h4 class="task-title">Sonni tekshirish (musbat / manfiy / nol)</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># Son turini aniqlang</span>
+<span class="comment"># > 0 → "Musbat"</span>
+<span class="comment"># < 0 → "Manfiy"</span>
+<span class="comment"># == 0 → "Nol"</span></pre>
+                            </div>
+                            <div class="task-hint">if / elif / else ishlatiladi</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 3 -->
+                    <div class="task-card fade-in stagger-3">
+                        <div class="task-header">
+                            <div class="task-number">3</div>
+                            <h4 class="task-title">3 ta son ichidan eng kattasini topish</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># 3 ta son kiriting</span>
+<span class="comment"># Eng katta sonni toping</span>
+<span class="comment"># Natijani chiqaring</span></pre>
+                            </div>
+                            <div class="task-hint">Shartlarni solishtiring: a > b and a > c</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 4 -->
+                    <div class="task-card fade-in stagger-4">
+                        <div class="task-header">
+                            <div class="task-number">4</div>
+                            <h4 class="task-title">Hafta kuni (1–7) chiqarish</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># 1 → "Dushanba"</span>
+<span class="comment"># 2 → "Seshanba"</span>
+<span class="comment"># ...</span>
+<span class="comment"># 7 → "Yakshanba"</span>
+<span class="comment"># boshqa → "Noto'g'ri kun"</span></pre>
+                            </div>
+                            <div class="task-hint">7 ta elif kerak bo'ladi</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 5 -->
+                    <div class="task-card fade-in stagger-5">
+                        <div class="task-header">
+                            <div class="task-number">5</div>
+                            <h4 class="task-title">Oylik bonus aniqlash</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># Ish staji va oylik kiriting</span>
+<span class="comment"># staj > 5 yil → 20% bonus</span>
+<span class="comment"># staj > 2 yil → 10% bonus</span>
+<span class="comment"># staj <= 2 yil → 5% bonus</span></pre>
+                            </div>
+                            <div class="task-hint">Bonus = oylik * foiz / 100</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 6 -->
+                    <div class="task-card fade-in stagger-6">
+                        <div class="task-header">
+                            <div class="task-number">6</div>
+                            <h4 class="task-title">Internet tezligi baholash</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># Mbps kiriting</span>
+<span class="comment"># > 100 → "Juda tez 🚀"</span>
+<span class="comment"># > 50 → "Yaxshi 👍"</span>
+<span class="comment"># > 20 → "O'rtacha 📶"</span>
+<span class="comment"># <= 20 → "Sekin 🐢"</span></pre>
+                            </div>
+                            <div class="task-hint">Tezlikni tahlil qiling</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 7 -->
+                    <div class="task-card fade-in stagger-7">
+                        <div class="task-header">
+                            <div class="task-number">7</div>
+                            <h4 class="task-title">Kino yosh cheklovi</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># Yosh va kino reytingi kiriting</span>
+<span class="comment"># 18+ kino → yosh >= 18 kerak</span>
+<span class="comment"># 13+ kino → yosh >= 13 kerak</span>
+<span class="comment"># 0+ kino → hamma ko'rishi mumkin</span></pre>
+                            </div>
+                            <div class="task-hint">Reyting va yoshni tekshiring</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 8 -->
+                    <div class="task-card fade-in stagger-8">
+                        <div class="task-header">
+                            <div class="task-number">8</div>
+                            <h4 class="task-title">Baho + status chiqarish</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># Ball kiriting (0-100)</span>
+<span class="comment"># 90-100 → "A - A'lochi"</span>
+<span class="comment"># 80-89 → "B - Yaxshi"</span>
+<span class="comment"># 70-79 → "C - O'rtacha"</span>
+<span class="comment"># 60-69 → "D - Qoniqarli"</span>
+<span class="comment"># < 60 → "F - O'tmadi"</span></pre>
+                            </div>
+                            <div class="task-hint">5 ta daraja aniqlang</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 9 -->
+                    <div class="task-card fade-in stagger-9">
+                        <div class="task-header">
+                            <div class="task-number">9</div>
+                            <h4 class="task-title">Taxi narxi hisoblash</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># Masofa (km) kiriting</span>
+<span class="comment"># 0-3 km → 10000 so'm (minimal)</span>
+<span class="comment"># 3-10 km → 10000 + (km-3)*2000</span>
+<span class="comment"># > 10 km → yuqoridagi + (km-10)*1500</span>
+<span class="comment"># Tungi tarif (22:00-06:00) +50%</span></pre>
+                            </div>
+                            <div class="task-hint">Masofa va vaqtni hisobga oling</div>
+                        </div>
+                    </div>
+
+                    <!-- Task 10 -->
+                    <div class="task-card full-width fade-in stagger-10">
+                        <div class="task-header">
+                            <div class="task-number">10</div>
+                            <h4 class="task-title">📊 Biznes foyda analizi</h4>
+                        </div>
+                        <div class="task-body">
+                            <div class="task-code">
+                                <pre><span class="comment"># Korxona ma'lumotlari:</span>
+<span class="variable">daromad</span> <span class="operator">=</span> <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Oylik daromad: "</span>))
+<span class="variable">xarajat</span> <span class="operator">=</span> <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Oylik xarajat: "</span>))
+<span class="variable">soliq</span> <span class="operator">=</span> <span class="number">12</span>  <span class="comment"># 12% soliq</span>
+
+<span class="comment"># Hisoblang:</span>
+<span class="comment"># 1. Sof foyda = daromad - xarajat - soliq</span>
+<span class="comment"># 2. Agar foyda > 0 → "Foyda: ... so'm"</span>
+<span class="comment"># 3. Agar foyda < 0 → "Zarar: ... so'm"</span>
+<span class="comment"># 4. Agar foyda = 0 → "Balans nol"</span>
+<span class="comment"># 5. Foyda > 1000000 → "Ajoyib oy! 🎉"</span>
+<span class="comment"># 6. Foyda < -500000 → "Ogohlantirish! ⚠️"</span></pre>
+                            </div>
+                            <div class="task-hint">Bu vazifa Data Analyst uchun eng muhim ko'nikma!</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">© 2024 <span>𝓈𝒶𝒹𝒹𝒶𝓂 𝓉𝑒𝒶𝒸𝒽𝑒𝓇</span> — Data Analyst Course | 2-dars</p>
+        </footer>
+    </main>
+
+    <script>
+        // ==================== PARTICLES ANIMATION ====================
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 60;
+        const connectionDistance = 120;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2.5 + 1;
+                this.baseOpacity = Math.random() * 0.4 + 0.2;
+                this.opacity = this.baseOpacity;
+                this.hue = Math.random() > 0.5 ? 156 : 186; // green or cyan
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Mouse interaction
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    this.opacity = this.baseOpacity + (1 - dist / 150) * 0.5;
+                    this.vx += dx * 0.00005;
+                    this.vy += dy * 0.00005;
+                } else {
+                    this.opacity = this.baseOpacity;
+                }
+
+                // Boundary check
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                // Speed limit
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (speed > 1) {
+                    this.vx *= 0.98;
+                    this.vy *= 0.98;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue}, 100%, 60%, ${this.opacity})`;
+                ctx.fill();
+
+                // Glow
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = `hsla(${this.hue}, 100%, 50%, 0.8)`;
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = (1 - distance / connectionDistance) * 0.12;
+                        const gradient = ctx.createLinearGradient(
+                            particles[i].x, particles[i].y,
+                            particles[j].x, particles[j].y
+                        );
+                        gradient.addColorStop(0, `hsla(${particles[i].hue}, 100%, 60%, ${opacity})`);
+                        gradient.addColorStop(1, `hsla(${particles[j].hue}, 100%, 60%, ${opacity})`);
+
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.shadowBlur = 0;
+
+            drawConnections();
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Card glow effect
+            document.querySelectorAll('.glass-card, .task-card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        initParticles();
+        animate();
+
+        // ==================== SECTION SWITCHING ====================
+        function switchSection(sectionId) {
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.section === sectionId) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const targetSection = document.getElementById(sectionId);
+            targetSection.classList.add('active');
+
+            // Re-trigger animations
+            const animatedElements = targetSection.querySelectorAll('.fade-in');
+            animatedElements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; // Trigger reflow
+                el.style.animation = null;
+            });
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==================== COPY CODE ====================
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('pre').innerText;
+
+            navigator.clipboard.writeText(code).then(() => {
+                button.classList.add('copied');
+                button.innerHTML = `
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    Nusxalandi!
+                `;
+
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = `
+                        <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                        Nusxa
+                    `;
+                }, 2500);
+            }).catch(err => {
+                console.error('Copy failed:', err);
+            });
+        }
+
+        // ==================== NAVBAR SCROLL EFFECT ====================
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+
+        // ==================== INTERSECTION OBSERVER ====================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // ==================== CODE BLOCK ANIMATION ====================
+        const codeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.code-block').forEach(block => {
+            codeObserver.observe(block);
+        });
+
+        // ==================== TYPING EFFECT FOR CODE (Optional) ====================
+        function typeCode(element, code, speed = 30) {
+            let i = 0;
+            element.innerHTML = '';
+
+            function type() {
+                if (i < code.length) {
+                    element.innerHTML += code.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // ==================== KEYBOARD NAVIGATION ====================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '1') switchSection('sinf-ishi');
+            if (e.key === '2') switchSection('uy-ishi');
+        });
+
+        // ==================== CONSOLE EASTER EGG ====================
+        console.log('%c🎓 Saddam Teacher | Data Analyst Course', 'color: #00ff9f; font-size: 20px; font-weight: bold;');
+        console.log('%c2-dars: if / elif / else', 'color: #00f0ff; font-size: 14px;');
+        console.log('%cTelegram: https://t.me/saddamtg', 'color: #0088cc; font-size: 12px;');
+    </script>
+</body>
+</html>
